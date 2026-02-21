@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Picker2026 {
 
@@ -67,6 +68,9 @@ public class Picker2026 {
         driverList.add(bottas);
         driverList.add(perez);
 
+        // Sort the Driver List by rank
+        driverList.sort(Comparator.comparingInt(Driver::getRank).reversed());
+
         teamList.add(new Team("Mercedes", 11, 35, new ArrayList<>(Arrays.asList(russell, antonelli))));
         teamList.add(new Team("Ferrari", 10, 30, new ArrayList<>(Arrays.asList(hamilton, leclerc))));
         teamList.add(new Team("Red Bull", 9, 35, new ArrayList<>(Arrays.asList(verstappen, hadjar))));
@@ -78,6 +82,9 @@ public class Picker2026 {
         teamList.add(new Team("Williams", 3, 15, new ArrayList<>(Arrays.asList(sainz, albon))));
         teamList.add(new Team("Aston Martin", 2, 10, new ArrayList<>(Arrays.asList(alonso, stroll))));
         teamList.add(new Team("Cadillac", 1, 5, new ArrayList<>(Arrays.asList(bottas, perez))));
+
+        // Sort the Team List by Driver Rank
+        teamList.sort(Comparator.comparingInt(Team::getDriverRank).reversed());
     }
 
 
@@ -179,9 +186,9 @@ public class Picker2026 {
 
     private void printDrivers(ArrayList<Driver> drivers) {
         for (Driver driver : drivers) {
-            System.out.print(driver.getName() + " : " + driver.getValue() + " - ");
+            System.out.print(driver.getName() + " : " + driver.getValue() + "(" + driver.getRank() + ") - ");
         }
-        System.out.println("total : " + getDriversValue(drivers));
+        System.out.println("total : " + getDriversValue(drivers) + "(" + getDriversRank(drivers) + ")");
     }
 
     private Integer getDriversValue(ArrayList<Driver> drivers) {
